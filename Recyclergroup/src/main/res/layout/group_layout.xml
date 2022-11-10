@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
+    android:background="#F3F3F3"
     >
 
     <TextView
@@ -12,13 +13,16 @@
         android:layout_height="wrap_content"
         android:text="Brand"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#B8B8B8"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/text1"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

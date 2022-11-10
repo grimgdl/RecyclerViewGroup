@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grimco.recyclergroup.recycler.data.Group
@@ -23,7 +24,7 @@ class RecyclerGroupAdapter(private val dataSet: List<Group>) : RecyclerView.Adap
         fun bind(result: Group){
             text1.text = result.text1
             recycler.adapter = ProductAdapter(result.product)
-            recycler.layoutManager = LinearLayoutManager(text1.context)
+            recycler.layoutManager = GridLayoutManager(text1.context, 2)
         }
 
     }
