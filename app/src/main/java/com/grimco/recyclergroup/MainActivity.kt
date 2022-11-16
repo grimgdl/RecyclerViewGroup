@@ -1,14 +1,18 @@
 package com.grimco.recyclergroup
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.grimco.recyclergroup.recycler.RecyclerGroupAdapter
 import com.grimco.recyclergroup.recycler.data.Group
 import com.grimco.recyclergroup.recycler.data.Product
+import com.grimco.recyclergroup.recycler.data.provider.Data
+import com.grimco.recyclergroup.recycler.data.provider.ProductJson
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,26 +23,30 @@ class MainActivity: AppCompatActivity() {
 
         val recycler: RecyclerView = findViewById(R.id.recycler)
 
+
+        val json = "{" +
+                " 'data': [ " +
+                "{'brand':'uno', products:[ {'id':1, 'name':'prod1', 'presentation':'3l'},{'id':2, 'name':'prod2', 'presentation':'4L'}," +
+                "                 {'id':8, 'name':'prod8', 'presentation':'10l', 'img':'https://picsum.photos/200'} ]}," +
+                "{'brand':'dos', products:[ {'id':3, 'name':'prod3', 'presentation':'6l'},{'id':4, 'name':'prod4', 'presentation':'1l'}]}," +
+                "{'brand':'dos', products:[ {'id':6, 'name':'prod3', 'presentation':'6l'},{'id':7, 'name':'prod4', 'presentation':'1l'}]}," +
+                "{'brand':'dos', products:[ {'id':8, 'name':'prod3', 'presentation':'6l'},{'id':9, 'name':'prod4', 'presentation':'1l'},{'id':10, 'name':'prod4', 'presentation':'1l'} ]}" +
+                "] " +
+                "}"
+
+
+        val gson = Gson()
+
+        val dataObject = gson.fromJson(json, Data::class.java)
+
         val list = ArrayList<Group>()
 
-        val prod1 = ArrayList<Product>()
-        prod1.add(Product(1, "pro1", "3L"))
-        prod1.add(Product(2, "pro2", "4L"))
-        prod1.add(Product(3, "pro3", "6L"))
+        dataObject.data.asIterable().forEach {
+            list.add(Group(it.brand, it.products))
+        }
 
-        val prod2 = ArrayList<Product>()
-        prod2.add(Product(4, "pro4", "5g"))
-        prod2.add(Product(5, "pro5", "5g"))
-        prod2.add(Product(6, "pro6", "6g"))
-        prod2.add(Product(7, "pro7", "10g"))
-
-
-        val group1 = Group("uno", prod1)
-        val group2 = Group("dos", prod2)
-        list.add(group1)
-        list.add(group2)
-
-        val adapter = RecyclerGroupAdapter(list)
+        val adapter = RecyclerGroupAdapter()
+        adapter.setData(list)
 
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)

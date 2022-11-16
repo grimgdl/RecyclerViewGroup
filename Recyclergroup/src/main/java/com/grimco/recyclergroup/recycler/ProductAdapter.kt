@@ -5,17 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.grimco.recyclergroup.recycler.data.Group
 import com.grimco.recyclergroup.recycler.data.Product
 
-class ProductAdapter(private val dataSet: List<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val name: TextView
-        val presen: TextView
-        val img: ImageView
+        private val name: TextView
+        private val presen: TextView
+        private val img: ImageView
 
         init {
             name = itemView.findViewById(R.id.txt_name)
@@ -27,8 +29,9 @@ class ProductAdapter(private val dataSet: List<Product>) : RecyclerView.Adapter<
             name.text = result.name
             presen.text = result.presentation
 
-            Glide.with(img.context).load("https://picsum.photos/200/300")
+            Glide.with(img.context).load(result.img)
                 .centerInside()
+                .error(R.drawable.ic_baseline_broken_image_24)
                 .into(img)
 
         }
@@ -42,5 +45,28 @@ class ProductAdapter(private val dataSet: List<Product>) : RecyclerView.Adapter<
     }
 
     override fun getItemCount() = dataSet.size
+
+    fun loadData(data: List<Product>){
+        val result = DiffUtil.calculateDiff(ProductDiff(dataSet, data))
+        dataSet = data
+        result.dispatchUpdatesTo(this)
+
+    }
+
+    inner class ProductDiff(private val oldList:List<Product> , private val newList: List<Product>) : DiffUtil.Callback() {
+        override fun getOldListSize() = oldList.size
+
+        override fun getNewListSize() = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            oldList[oldItemPosition].id == newList[newItemPosition].id
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            oldList[oldItemPosition].name == newList[newItemPosition].name &&
+            oldList[oldItemPosition].presentation == newList[newItemPosition].presentation
+
+
+    }
+
 
 }

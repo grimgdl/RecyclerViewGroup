@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grimco.recyclergroup.recycler.data.Group
 
-class RecyclerGroupAdapter(private val dataSet: List<Group>) : RecyclerView.Adapter<RecyclerGroupAdapter.ViewHolder>(){
+class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : RecyclerView.Adapter<RecyclerGroupAdapter.ViewHolder>(){
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
 
-        val text1 : TextView
+        private val text1 : TextView
         val recycler: RecyclerView
 
         init {
@@ -23,7 +23,13 @@ class RecyclerGroupAdapter(private val dataSet: List<Group>) : RecyclerView.Adap
 
         fun bind(result: Group){
             text1.text = result.text1
-            recycler.adapter = ProductAdapter(result.product)
+
+            val adapter = ProductAdapter()
+            adapter.loadData(result.product)
+
+            recycler.adapter = adapter
+
+
             recycler.layoutManager = GridLayoutManager(text1.context, 2)
         }
 
@@ -37,6 +43,26 @@ class RecyclerGroupAdapter(private val dataSet: List<Group>) : RecyclerView.Adap
     }
 
     override fun getItemCount() = dataSet.size
+
+
+    fun setData(data: List<Group>){
+        val result = DiffUtil.calculateDiff(DataDiff(dataSet, data))
+        dataSet = data
+        result.dispatchUpdatesTo(this)
+    }
+
+    inner class DataDiff(private val oldList: List<Group>, private val newList: List<Group>) : DiffUtil.Callback() {
+        override fun getOldListSize() = oldList.size
+
+        override fun getNewListSize() = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            oldList[oldItemPosition].text1 == newList[newItemPosition].text1
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            oldList[oldItemPosition].text1 == newList[newItemPosition].text1
+
+    }
 
 
 }
