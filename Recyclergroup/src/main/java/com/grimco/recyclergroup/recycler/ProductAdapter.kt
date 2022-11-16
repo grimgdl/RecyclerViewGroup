@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.grimco.recyclergroup.recycler.data.Group
 import com.grimco.recyclergroup.recycler.data.Product
+import com.grimco.recyclergroup.recycler.data.provider.diff.ProductDiff
 
 class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -53,20 +53,6 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
 
     }
 
-    inner class ProductDiff(private val oldList:List<Product> , private val newList: List<Product>) : DiffUtil.Callback() {
-        override fun getOldListSize() = oldList.size
-
-        override fun getNewListSize() = newList.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            oldList[oldItemPosition].id == newList[newItemPosition].id
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            oldList[oldItemPosition].name == newList[newItemPosition].name &&
-            oldList[oldItemPosition].presentation == newList[newItemPosition].presentation
-
-
-    }
 
 
 }

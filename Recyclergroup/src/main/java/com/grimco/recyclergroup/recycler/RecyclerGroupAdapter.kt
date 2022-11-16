@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grimco.recyclergroup.recycler.data.Group
+import com.grimco.recyclergroup.recycler.data.Product
+import com.grimco.recyclergroup.recycler.data.provider.diff.ProductDiff
 
 class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : RecyclerView.Adapter<RecyclerGroupAdapter.ViewHolder>(){
 
@@ -31,7 +33,10 @@ class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : Rec
 
 
             recycler.layoutManager = GridLayoutManager(text1.context, 2)
+
         }
+
+
 
     }
 
@@ -49,6 +54,8 @@ class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : Rec
         val result = DiffUtil.calculateDiff(DataDiff(dataSet, data))
         dataSet = data
         result.dispatchUpdatesTo(this)
+        //notifyDataSetChanged()
+
     }
 
     inner class DataDiff(private val oldList: List<Group>, private val newList: List<Group>) : DiffUtil.Callback() {
@@ -60,7 +67,11 @@ class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : Rec
             oldList[oldItemPosition].text1 == newList[newItemPosition].text1
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            oldList[oldItemPosition].text1 == newList[newItemPosition].text1
+            oldList[oldItemPosition].text1 == newList[newItemPosition].text1 &&
+            productList(oldList[oldItemPosition].product, newList[newItemPosition].product )
+
+        private fun productList(oldListPro: List<Product>, newListProd: List<Product> ): Boolean  =
+            oldListPro == newListProd
 
     }
 

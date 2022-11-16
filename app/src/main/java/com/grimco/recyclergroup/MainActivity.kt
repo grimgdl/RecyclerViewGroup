@@ -1,55 +1,83 @@
 package com.grimco.recyclergroup
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+
+import com.android.volley.toolbox.JsonObjectRequest
+
+import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.grimco.recyclergroup.recycler.RecyclerGroupAdapter
 import com.grimco.recyclergroup.recycler.data.Group
-import com.grimco.recyclergroup.recycler.data.Product
+
 import com.grimco.recyclergroup.recycler.data.provider.Data
-import com.grimco.recyclergroup.recycler.data.provider.ProductJson
+
 
 class MainActivity : AppCompatActivity() {
 
+    private val adapter: RecyclerGroupAdapter = RecyclerGroupAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.main_activity)
 
-
         val recycler: RecyclerView = findViewById(R.id.recycler)
 
 
-        val json = "{" +
-                " 'data': [ " +
-                "{'brand':'uno', products:[ {'id':1, 'name':'prod1', 'presentation':'3l'},{'id':2, 'name':'prod2', 'presentation':'4L'}," +
-                "                 {'id':8, 'name':'prod8', 'presentation':'10l', 'img':'https://picsum.photos/200'} ]}," +
-                "{'brand':'dos', products:[ {'id':3, 'name':'prod3', 'presentation':'6l'},{'id':4, 'name':'prod4', 'presentation':'1l'}]}," +
-                "{'brand':'dos', products:[ {'id':6, 'name':'prod3', 'presentation':'6l'},{'id':7, 'name':'prod4', 'presentation':'1l'}]}," +
-                "{'brand':'dos', products:[ {'id':8, 'name':'prod3', 'presentation':'6l'},{'id':9, 'name':'prod4', 'presentation':'1l'},{'id':10, 'name':'prod4', 'presentation':'1l'} ]}" +
-                "] " +
-                "}"
-
-
-        val gson = Gson()
-
-        val dataObject = gson.fromJson(json, Data::class.java)
-
-        val list = ArrayList<Group>()
-
-        dataObject.data.asIterable().forEach {
-            list.add(Group(it.brand, it.products))
-        }
-
-        val adapter = RecyclerGroupAdapter()
-        adapter.setData(list)
-
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)
+
+
+
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.main, menu);
+
+        return true;
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when(item.itemId) {
+            R.id.refresh -> {
+                loadData()
+                true
+            }
+            else -> true
+        }
+    }
+
+    private fun loadData(){
+
+        val volley = Volley.newRequestQueue(this)
+        val request = JsonObjectRequest(Request.Method.GET, "http://10.0.2.2/test", null,
+            {
+
+                val gson = Gson()
+                val dataObject = gson.fromJson(it.toString(), Data::class.java)
+
+                val list = ArrayList<Group>()
+
+                dataObject.data.asIterable().forEach {
+                    list.add(Group(it.brand, it.products))
+                }
+
+                adapter.setData(list)
+
+            }, {
+
+            })
+
+        volley.add(request)
 
     }
 }
