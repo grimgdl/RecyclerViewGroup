@@ -1,6 +1,6 @@
 ## Recycler Group
 
-is an widget that implement a custom recyclerview in group
+It is a widget that implement a custom recyclerview in group
 
 
 
