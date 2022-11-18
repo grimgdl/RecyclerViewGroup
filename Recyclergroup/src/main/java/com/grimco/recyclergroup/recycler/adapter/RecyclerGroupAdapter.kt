@@ -1,4 +1,4 @@
-package com.grimco.recyclergroup.recycler
+package com.grimco.recyclergroup.recycler.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.grimco.recyclergroup.recycler.R
 import com.grimco.recyclergroup.recycler.data.Group
 import com.grimco.recyclergroup.recycler.data.Product
-import com.grimco.recyclergroup.recycler.data.provider.diff.ProductDiff
 
 class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : RecyclerView.Adapter<RecyclerGroupAdapter.ViewHolder>(){
 
@@ -31,12 +31,9 @@ class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : Rec
 
             recycler.adapter = adapter
 
-
             recycler.layoutManager = GridLayoutManager(text1.context, 2)
 
         }
-
-
 
     }
 

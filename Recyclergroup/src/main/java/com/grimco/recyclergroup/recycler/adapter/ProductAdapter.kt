@@ -1,4 +1,4 @@
-package com.grimco.recyclergroup.recycler
+package com.grimco.recyclergroup.recycler.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.grimco.recyclergroup.recycler.R
 import com.grimco.recyclergroup.recycler.data.Product
 import com.grimco.recyclergroup.recycler.data.provider.diff.ProductDiff
 
