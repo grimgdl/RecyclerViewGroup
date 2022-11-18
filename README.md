@@ -72,3 +72,10 @@ Api Consume example
     }
 ```
 
+
+### Preview
+
+
+![untitled](https://user-images.githubusercontent.com/4397770/202604276-8fe85087-f058-4087-b28b-a2eec24fb1ef.gif)
+
+
