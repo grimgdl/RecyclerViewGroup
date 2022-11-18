@@ -32,6 +32,39 @@ Step 2. Add the dependency
 ```
 
 
+
+### How to use
+
+
+
+```xml
+<com.grimco.recyclergroup.recycler.view.RecyclerGroupGrim
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+```
+
+
+```kotlin
+
+val recycler = findViewById(R.id.recycler)
+
+//data format is in the next section
+val data = "{}"
+
+recycler.loadData(data)
+
+
+```
+
+
+Api Consume example
+
 ```json
 
     {
