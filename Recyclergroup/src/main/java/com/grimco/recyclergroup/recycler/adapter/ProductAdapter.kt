@@ -15,7 +15,9 @@ import com.grimco.recyclergroup.recycler.data.provider.diff.ProductDiff
 class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    private var listener: ProductListener? = null
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
         private val name: TextView
         private val presen: TextView
         private val img: ImageView
@@ -35,7 +37,14 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(img)
 
+            itemView.setOnClickListener(this)
+
         }
+
+        override fun onClick(p0: View?) {
+            listener?.onProductClick(dataSet[adapterPosition])
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -56,6 +65,13 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
 
     }
 
+    fun addListener(l0: ProductListener){
+        listener = l0
+    }
 
+
+    interface ProductListener{
+        fun onProductClick(product: Product)
+    }
 
 }

@@ -13,6 +13,8 @@ import com.grimco.recyclergroup.recycler.data.Product
 
 class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : RecyclerView.Adapter<RecyclerGroupAdapter.ViewHolder>(){
 
+    private var listener: ProductAdapter.ProductListener? = null
+
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
 
         private val text1 : TextView
@@ -27,6 +29,7 @@ class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : Rec
             text1.text = result.text1
 
             val adapter = ProductAdapter()
+            listener?.let { adapter.addListener(it) }
             adapter.loadData(result.product)
 
             recycler.adapter = adapter
@@ -70,6 +73,11 @@ class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : Rec
             oldListPro == newListProd
 
     }
+
+    fun addListener(l0: ProductAdapter.ProductListener ){
+        listener = l0
+    }
+
 
 
 }

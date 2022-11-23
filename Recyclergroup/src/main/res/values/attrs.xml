@@ -4,6 +4,7 @@
     <declare-styleable name="RecyclerGroupGrim">
         <attr name="showText" format="boolean"/>
         <attr name="android:title" format="boolean"/>
+        <attr name="bgColor" format="color" />
     </declare-styleable>
 
 

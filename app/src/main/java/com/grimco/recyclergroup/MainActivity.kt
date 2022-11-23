@@ -4,22 +4,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 
 import com.android.volley.toolbox.JsonObjectRequest
 
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import com.grimco.recyclergroup.recycler.adapter.ProductAdapter
 import com.grimco.recyclergroup.recycler.data.Group
+import com.grimco.recyclergroup.recycler.data.Product
 
 import com.grimco.recyclergroup.recycler.data.provider.Data
 import com.grimco.recyclergroup.recycler.view.RecyclerGroupGrim
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ProductAdapter.ProductListener {
 
     private lateinit var recyclerGrim: RecyclerGroupGrim
 
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
 
         recyclerGrim = findViewById(R.id.recycler)
+
+        recyclerGrim.addListener(this)
 
     }
 
@@ -63,9 +66,7 @@ class MainActivity : AppCompatActivity() {
 
                 val list = ArrayList<Group>()
 
-                dataObject.data.asIterable().forEach {
-                    list.add(Group(it.brand, it.products))
-                }
+                dataObject.data.asIterable().forEach { pr -> list.add(Group(pr.brand, pr.products)) }
 
                 recyclerGrim.setData(list)
 
@@ -74,6 +75,12 @@ class MainActivity : AppCompatActivity() {
             })
 
         volley.add(request)
+
+    }
+
+    override fun onProductClick(product: Product) {
+
+        Log.d("Main Click", product.name)
 
     }
 }
