@@ -51,7 +51,6 @@ class RecyclerGroupAdapter(private var dataSet: List<Group> = ArrayList()) : Rec
         val result = DiffUtil.calculateDiff(DataDiff(dataSet, data))
         dataSet = data
         result.dispatchUpdatesTo(this)
-        //notifyDataSetChanged()
 
     }
 

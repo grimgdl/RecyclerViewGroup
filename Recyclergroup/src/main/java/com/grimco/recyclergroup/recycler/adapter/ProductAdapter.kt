@@ -39,7 +39,9 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.product_layout, parent, false))
+        ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.product_layout, parent, false)
+        )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataSet[position])
