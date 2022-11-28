@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.grimco.recyclergroup.recycler.R
 import com.grimco.recyclergroup.recycler.adapter.ProductAdapter
 import com.grimco.recyclergroup.recycler.adapter.RecyclerGroupAdapter
+import com.grimco.recyclergroup.recycler.data.Brand
 import com.grimco.recyclergroup.recycler.data.Group
 
 
@@ -62,7 +63,7 @@ class RecyclerGroupGrim: ConstraintLayout {
 
     }
 
-    fun setData(data: List<Group>){
+    fun setData(data: List<Brand>){
         adapter.setData(data)
     }
 

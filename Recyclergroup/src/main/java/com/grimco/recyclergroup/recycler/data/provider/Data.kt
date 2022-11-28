@@ -1,3 +1,5 @@
 package com.grimco.recyclergroup.recycler.data.provider
 
-data class Data(val data: List<ProductJson>)
+import com.grimco.recyclergroup.recycler.data.Brand
+
+data class Data(val data: List<Brand>)

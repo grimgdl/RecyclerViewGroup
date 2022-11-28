@@ -57,18 +57,14 @@ class MainActivity : AppCompatActivity(), ProductAdapter.ProductListener {
     private fun loadData(){
 
         val volley = Volley.newRequestQueue(this)
-        val request = JsonObjectRequest(Request.Method.GET, "http://10.0.2.2/test", null,
+        val request = JsonObjectRequest(Request.Method.GET, "http://10.0.2.2/test/brands.php", null,
             {
 
 
                 val gson = Gson()
                 val dataObject = gson.fromJson(it.toString(), Data::class.java)
 
-                val list = ArrayList<Group>()
-
-                dataObject.data.asIterable().forEach { pr -> list.add(Group(pr.brand, pr.products)) }
-
-                recyclerGrim.setData(list)
+                recyclerGrim.setData(dataObject.data)
 
             }, {
 
