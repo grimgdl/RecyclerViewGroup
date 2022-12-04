@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -18,6 +19,7 @@ import com.grimco.recyclergroup.recycler.data.Product
 
 import com.grimco.recyclergroup.recycler.data.provider.Data
 import com.grimco.recyclergroup.recycler.view.RecyclerGroupGrim
+import java.text.FieldPosition
 
 
 class MainActivity : AppCompatActivity(), ProductAdapter.ProductListener {
@@ -74,7 +76,7 @@ class MainActivity : AppCompatActivity(), ProductAdapter.ProductListener {
 
     }
 
-    override fun onProductClick(product: Product) {
+    override fun onProductClick(product: Product, position: Int, view: View) {
 
         Log.d("Main Click", product.name)
 

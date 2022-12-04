@@ -42,7 +42,7 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
         }
 
         override fun onClick(p0: View?) {
-            listener?.onProductClick(dataSet[adapterPosition])
+            listener?.onProductClick(dataSet[adapterPosition], adapterPosition, img)
         }
 
     }
@@ -71,7 +71,7 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
 
 
     interface ProductListener{
-        fun onProductClick(product: Product)
+        fun onProductClick(product: Product, position: Int, view: View)
     }
 
 }
