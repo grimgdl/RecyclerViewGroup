@@ -20,14 +20,12 @@ import com.grimco.recyclergroup.recycler.data.Group
 class RecyclerGroupGrim: ConstraintLayout {
 
     private val recycler: RecyclerView
-    private val editText: EditText
     private val adapter : RecyclerGroupAdapter
 
     init {
         LayoutInflater.from(context).inflate(R.layout.recycler_grim, this, true)
 
         recycler = findViewById(R.id.recycler_parent)
-        editText = findViewById(R.id.editText)
 
         adapter = RecyclerGroupAdapter()
         recycler.adapter = adapter
