@@ -1,10 +1,13 @@
 package com.grimco.recyclergroup.recycler.adapter
 
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -21,16 +24,24 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
         private val name: TextView
         private val presen: TextView
         private val img: ImageView
+        private val imgAlert: ImageView
+        private val drawable: Drawable
 
         init {
             name = itemView.findViewById(R.id.txt_name)
             presen = itemView.findViewById(R.id.txt_presentaton)
             img = itemView.findViewById(R.id.img)
+            imgAlert = itemView.findViewById(R.id.alert)
+            drawable = AppCompatResources.getDrawable(imgAlert.context, R.drawable.avd_anim_2)!!
         }
 
         fun bind(result: Product){
             name.text = result.name
             presen.text = result.presentation
+
+            imgAlert.background = drawable
+            if (drawable is AnimatedVectorDrawable)
+                drawable.start()
 
             Glide.with(img.context).load(result.img)
                 .centerInside()
