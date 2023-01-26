@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 
 import com.grimco.recyclergroup.recycler.R
 import com.grimco.recyclergroup.recycler.adapter.ProductAdapter
@@ -28,6 +29,10 @@ class RecyclerGroupGrim: ConstraintLayout {
         recycler = findViewById(R.id.recycler_parent)
 
         adapter = RecyclerGroupAdapter()
+
+        val animator = recycler.itemAnimator as SimpleItemAnimator
+        animator.supportsChangeAnimations = false
+
         recycler.adapter = adapter
 
         recycler.layoutManager = LinearLayoutManager(context)
