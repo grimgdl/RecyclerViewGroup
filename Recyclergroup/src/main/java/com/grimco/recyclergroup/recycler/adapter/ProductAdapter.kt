@@ -44,7 +44,7 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
                 drawable.start()
 
             Glide.with(img.context).load(result.img)
-                .centerInside()
+                .centerCrop()
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(img)
 
