@@ -25,7 +25,7 @@ Step 2. Add the dependency
 
 ```groovy
     dependencies {
-	        implementation 'com.github.grimarj89:RecyclerViewGroup:$version'
+	        implementation 'com.github.grimgdl:RecyclerViewGroup:$version'
 
 	}
 

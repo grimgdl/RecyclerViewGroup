@@ -21,19 +21,11 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
     private var listener: ProductListener? = null
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
-        private val name: TextView
-        private val presen: TextView
-        private val img: ImageView
-        private val imgAlert: ImageView
-        private val drawable: Drawable
-
-        init {
-            name = itemView.findViewById(R.id.txt_name)
-            presen = itemView.findViewById(R.id.txt_presentaton)
-            img = itemView.findViewById(R.id.img)
-            imgAlert = itemView.findViewById(R.id.alert)
-            drawable = AppCompatResources.getDrawable(imgAlert.context, R.drawable.avd_anim_2)!!
-        }
+        private val name: TextView = itemView.findViewById(R.id.txt_name)
+        private val presen: TextView = itemView.findViewById(R.id.txt_presentaton)
+        private val img: ImageView = itemView.findViewById(R.id.img)
+        private val imgAlert: ImageView = itemView.findViewById(R.id.alert)
+        private val drawable: Drawable = AppCompatResources.getDrawable(imgAlert.context, R.drawable.avd_anim_2)!!
 
         fun bind(result: Product){
             name.text = result.name
@@ -45,6 +37,7 @@ class ProductAdapter(private var dataSet: List<Product> = ArrayList()) : Recycle
 
             Glide.with(img.context).load(result.img)
                 .centerCrop()
+                .dontAnimate()
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(img)
 
