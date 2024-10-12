@@ -39,16 +39,20 @@ Step 2. Add the dependency
 
 ```xml
 <com.grimco.recyclergroup.recycler.view.RecyclerGroupGrim
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:groupTextColor="#126F87"
+/>
 
 ```
+You can change the Group color adding `app:groupTextColor="#000000"` attribute 
 
+Also you can add the `app:filter=true` to activate filter
 
 ```kotlin
 
@@ -71,6 +75,7 @@ Api Consume example
         "data": [{ "brand": "" , "product":[{"id": , "name": "test1", "presentation":"3L", "img":"https://image.com/300.jpg"},...] }, ...]
     }
 ```
+
 
 
 ### Preview

@@ -5,6 +5,9 @@
         <attr name="showText" format="boolean"/>
         <attr name="android:title" format="boolean"/>
         <attr name="bgColor" format="color" />
+        <attr name="groupTextColor" format="color" />
+        <attr name="filter" format="boolean" />
+
     </declare-styleable>
 
 

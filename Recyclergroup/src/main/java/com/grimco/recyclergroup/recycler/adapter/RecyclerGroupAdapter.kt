@@ -1,5 +1,6 @@
 package com.grimco.recyclergroup.recycler.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,25 +13,24 @@ import com.bumptech.glide.Glide
 import com.grimco.recyclergroup.recycler.R
 import com.grimco.recyclergroup.recycler.data.Brand
 import com.grimco.recyclergroup.recycler.data.Product
+import kotlin.properties.Delegates
 
 class RecyclerGroupAdapter(private var dataSet: List<Brand> = ArrayList()) : RecyclerView.Adapter<RecyclerGroupAdapter.ViewHolder>(){
 
     private var listener: ProductAdapter.ProductListener? = null
+    private var groupColor = Color.BLACK
+    private var originalData: List<Brand> = ArrayList(dataSet)
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
 
-        private val text1 : TextView
-        private val recycler: RecyclerView
-        private val img: ImageView
-
-        init {
-            text1 = view.findViewById(R.id.text1)
-            recycler = view.findViewById(R.id.recycler)
-            img = view.findViewById(R.id.img)
-        }
+        private val text1 : TextView = view.findViewById(R.id.text1)
+        private val recycler: RecyclerView = view.findViewById(R.id.recycler)
+        private val img: ImageView = view.findViewById(R.id.img)
 
         fun bind(result: Brand){
             text1.text = result.name
+
+            text1.setTextColor(groupColor)
 
             val adapter = ProductAdapter()
             listener?.let { adapter.addListener(it) }
@@ -61,8 +61,38 @@ class RecyclerGroupAdapter(private var dataSet: List<Brand> = ArrayList()) : Rec
 
 
     fun setData(data: List<Brand>){
+
         val result = DiffUtil.calculateDiff(DataDiff(dataSet, data))
+        originalData = data
         dataSet = data
+
+        result.dispatchUpdatesTo(this)
+
+
+    }
+
+    fun setGroupColor(color: Int) {
+        this.groupColor = color
+    }
+
+
+    fun filter(filter: String) {
+
+        val filtered: List<Brand> = if(filter.isEmpty()) {
+            originalData
+        }else {
+
+            originalData.mapNotNull { brand ->
+                val filteredProducts =
+                    brand.products.filter { product -> product.name.contains(filter, ignoreCase = true) }
+
+                brand.takeIf { filteredProducts.isNotEmpty() }?.copy(products = filteredProducts)
+            }
+        }
+
+        val result = DiffUtil.calculateDiff(DataDiff(dataSet, filtered))
+
+        dataSet = filtered
         result.dispatchUpdatesTo(this)
 
     }
