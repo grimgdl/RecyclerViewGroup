@@ -80,6 +80,6 @@ Api Consume example
 
 ### Preview
 
-<img src="https://user-images.githubusercontent.com/4397770/202604276-8fe85087-f058-4087-b28b-a2eec24fb1ef.gif" width="300" height="auto"/>
+[Screen_recording_20241012_105308.webm](https://github.com/user-attachments/assets/7b20c4c0-2e84-4360-be80-7abca122b567)
 
 
