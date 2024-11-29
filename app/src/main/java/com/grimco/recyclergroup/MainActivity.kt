@@ -1,5 +1,7 @@
 package com.grimco.recyclergroup
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -122,6 +124,16 @@ class MainActivity : AppCompatActivity(), ProductAdapter.ProductListener {
     override fun onProductClick(product: Product, position: Int, view: View) {
 
         Log.d("Main Click", product.name)
+
+        val detailIntent = Intent(this, DetailActivity::class.java).apply {
+            putExtra("url", product.img)
+        }
+
+        startActivity(
+            detailIntent,
+            ActivityOptions.makeSceneTransitionAnimation(this, view, "tran").toBundle()
+        )
+
 
     }
 }
